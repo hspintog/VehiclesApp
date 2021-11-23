@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:vehicles_app/components/loader_component.dart';
 import 'package:vehicles_app/helpers/constans.dart';
 import 'package:http/http.dart' as http;
 import 'package:vehicles_app/models/token.dart';
+import 'package:vehicles_app/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ Key? key }) : super(key: key);
@@ -27,11 +29,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
-          Center(
+        children: <Widget>[
+          SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(height: 40,),
                 _showLogo(),
                 SizedBox(height: 20,),
                 _showEmail(),
@@ -39,8 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 _showRememberme(),
                 _showButtons(),
               ],
-            )
+            ),
           ),
+          
+          _showLoader ? LoaderComponent(text: 'Por favor espere...',) : Container(),
         ],
       ),
     );
@@ -171,7 +176,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if(!_validateFields()){
       return;
     }
-
+    setState(() {
+        _showLoader = true;
+    });
     Map<String, dynamic> request = {
       'userName': _email,
       'password': _password,
@@ -194,10 +201,19 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
 
+    setState(() {
+        _showLoader = false;
+    });
+
    var body = response.body;
    var decodedJson = jsonDecode(body);
    var token = Token.fromJson(decodedJson);
-   print(token.token);
+   Navigator.pushReplacement(
+     context, 
+     MaterialPageRoute(
+       builder: (context) => HomeScreen(token: token,)
+     )
+  );
   }
 
   bool _validateFields() {

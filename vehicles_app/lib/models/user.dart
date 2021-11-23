@@ -1,4 +1,4 @@
-import 'package:vehicles_app/models/vehicle.dart';
+///import 'package:vehicles_app/models/vehicle.dart';
 import 'document_type.dart';
 
 class User {
@@ -12,8 +12,8 @@ class User {
   int userType = 1;
   int loginType = 0;
   String fullName = '';
-  List<Vehicle> vehicles = [];
-  int vehiclesCount = 0;
+  //List<Vehicle> vehicles = [];
+  //int vehiclesCount = 0;
   String id = '';
   String userName = '';
   String email = '';
@@ -31,8 +31,8 @@ class User {
     required this.userType,
     required this.loginType,
     required this.fullName,
-    required this.vehicles,
-    required this.vehiclesCount,
+    //required this.vehicles,
+    //required this.vehiclesCount,
     required this.id,
     required this.userName,
     required this.email,
@@ -51,13 +51,13 @@ class User {
     userType = json['userType'];
     loginType = json['loginType'];
     fullName = json['fullName'];
-    if (json['vehicles'] != null) {
+    /*if (json['vehicles'] != null) {
       vehicles = [];
       json['vehicles'].forEach((v) {
         vehicles.add(new Vehicle.fromJson(v));
       });
     }
-    vehiclesCount = json['vehiclesCount'];
+    vehiclesCount = json['vehiclesCount'];*/
     id = json['id'];
     userName = json['userName'];
     email = json['email'];
@@ -77,8 +77,8 @@ class User {
     data['userType'] = this.userType;
     data['loginType'] = this.loginType;
     data['fullName'] = this.fullName;
-    data['vehicles'] = this.vehicles.map((v) => v.toJson()).toList();
-    data['vehiclesCount'] = this.vehiclesCount;
+    //data['vehicles'] = this.vehicles.map((v) => v.toJson()).toList();
+    //data['vehiclesCount'] = this.vehiclesCount;
     data['id'] = this.id;
     data['userName'] = this.userName;
     data['email'] = this.email;

@@ -20,8 +20,8 @@ class Token {
     email: '', 
     countryCode: '57',
     phoneNumber: '', 
-    vehicles: [], 
-    vehiclesCount: 0
+    //vehicles: [], 
+    //vehiclesCount: 0
   );
 
   Token({required this.token, required this.expiration, required this.user});
